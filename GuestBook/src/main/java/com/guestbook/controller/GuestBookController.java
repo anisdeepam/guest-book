@@ -39,8 +39,6 @@ public class GuestBookController {
 	@GetMapping(GuestBookURIConstants.HOME_URI)
     public String homePage() {
 		log.debug("Method GuestBookController.saveApprovedGuestEntry");
-		String s = null;
-		System.out.println(s.length());
         return GuestBookViewConstants.HOME_PAGE_VIEW;
 	}
 	
