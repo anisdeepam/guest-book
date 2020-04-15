@@ -1,9 +1,9 @@
 package com.guestbook.config;
 
-import static com.guestbook.Constants.GuestBookURIConstants.ACCESS_DENIED_URI;
-import static com.guestbook.Constants.GuestBookURIConstants.ADMIN_URI;
-import static com.guestbook.Constants.GuestBookURIConstants.GUEST_URI;
-import static com.guestbook.Constants.GuestBookURIConstants.HOME_URI;
+import static com.guestbook.constants.GuestBookURIConstants.ACCESS_DENIED_URI;
+import static com.guestbook.constants.GuestBookURIConstants.ADMIN_URI;
+import static com.guestbook.constants.GuestBookURIConstants.GUEST_URI;
+import static com.guestbook.constants.GuestBookURIConstants.HOME_URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

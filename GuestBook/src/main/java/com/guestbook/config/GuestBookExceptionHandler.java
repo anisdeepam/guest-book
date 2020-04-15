@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.guestbook.Constants.GuestBookAppConstants;
-import com.guestbook.Constants.GuestBookViewConstants;
+import com.guestbook.constants.GuestBookAppConstants;
+import com.guestbook.constants.GuestBookViewConstants;
 import com.guestbook.exception.GuestBookException;
 /**
  * Exception Handling for GuestBook Controller

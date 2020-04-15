@@ -1,5 +1,7 @@
 package com.guestbook.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +11,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.guestbook.Constants.GuestBookAppConstants;
-import com.guestbook.Constants.GuestBookURIConstants;
-import com.guestbook.Constants.GuestBookViewConstants;
+import com.guestbook.constants.GuestBookAppConstants;
+import com.guestbook.constants.GuestBookURIConstants;
+import com.guestbook.constants.GuestBookViewConstants;
 import com.guestbook.exception.GuestBookException;
 import com.guestbook.model.AdminFormVO;
 import com.guestbook.model.GuestEntryVO;
@@ -65,7 +69,8 @@ public class GuestBookController {
 	public String getGuestBookEntries(Model model) throws GuestBookException {
 		log.debug("Method GuestBookController.getGuestBookEntries");
 		AdminFormVO adminForm = new AdminFormVO();
-		adminForm.setEntries(guestBookService.fetchAllGuestEntries());
+		List<GuestEntryVO> entries = guestBookService.fetchAllGuestEntries();
+		adminForm.setEntries(entries);
 		model.addAttribute(GuestBookAppConstants.ADMIN_FORM, adminForm);
 		return GuestBookViewConstants.ADMIN_PAGE_VIEW;
 	}
@@ -94,6 +99,7 @@ public class GuestBookController {
 	/**
 	 * This method adds the new guest entry by guest user
 	 * and renders the guest page
+	 * @param guestFile
 	 * @param guestEntryVO
 	 * @param result
 	 * @param status
@@ -101,10 +107,10 @@ public class GuestBookController {
 	 * @throws GuestBookException 
 	 */
 	@PostMapping(GuestBookURIConstants.GUEST_ADD_URI)
-    public String saveGuestEntry(@ModelAttribute(GuestBookAppConstants.GUEST_ENTRY) GuestEntryVO guestEntryVO,
+    public String saveGuestEntry(@RequestParam(GuestBookAppConstants.GUEST_FILE) MultipartFile guestFile, @ModelAttribute(GuestBookAppConstants.GUEST_ENTRY) GuestEntryVO guestEntryVO,
     		BindingResult result, SessionStatus status) throws GuestBookException {
 		log.debug("Method GuestBookController.saveGuestEntry");
-		guestBookService.saveGuestEntry(guestEntryVO);
+		guestBookService.saveGuestEntry(guestEntryVO, guestFile);
 		return GuestBookViewConstants.GUEST_PAGE_VIEW;
 	}
 	

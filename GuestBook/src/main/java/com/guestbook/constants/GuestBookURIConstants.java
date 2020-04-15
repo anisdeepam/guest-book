@@ -1,4 +1,4 @@
-package com.guestbook.Constants;
+package com.guestbook.constants;
 /**
  * This class holds Guest Book URI Constants
  * @author Anis Deepa

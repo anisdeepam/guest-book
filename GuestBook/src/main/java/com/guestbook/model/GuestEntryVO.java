@@ -1,6 +1,8 @@
 package com.guestbook.model;
 
 import java.io.Serializable;
+
+import org.springframework.web.multipart.MultipartFile;
 /**
  * This is POJO for GuestEntryVO
  * @author Anis Deepa
@@ -23,6 +25,10 @@ public class GuestEntryVO implements Serializable {
 	private String message;
 	
 	private Boolean isApproved;
+	
+	private String messageOption;
+	
+	private MultipartFile guestFile;
 
 	public Boolean getSelected() {
 		return selected;
@@ -78,6 +84,22 @@ public class GuestEntryVO implements Serializable {
 
 	public void setIsApproved(Boolean isApproved) {
 		this.isApproved = isApproved;
+	}
+	
+	public String getMessageOption() {
+		return messageOption;
+	}
+
+	public void setMessageOption(String messageOption) {
+		this.messageOption = messageOption;
+	}
+
+	public MultipartFile getGuestFile() {
+		return guestFile;
+	}
+
+	public void setGuestFile(MultipartFile guestFile) {
+		this.guestFile = guestFile;
 	}
 
 	@Override

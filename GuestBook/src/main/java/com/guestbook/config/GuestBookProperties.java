@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 
-import com.guestbook.Constants.GuestBookAppConstants;
+import com.guestbook.constants.GuestBookAppConstants;
 @Configuration
 @ConfigurationProperties(prefix = GuestBookAppConstants.GUEST_BOOK_LOGIN)
 public class GuestBookProperties {

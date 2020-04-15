@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.guestbook.entity.GuestEntry;
 import com.guestbook.exception.GuestBookException;
@@ -82,15 +83,17 @@ public class GuestBookServiceImpl implements GuestBookService{
 	/**
 	 * This method adds new guestbook entry
 	 * @param guestEntryVO
+	 * @param guestFile
 	 * @throws GuestBookException 
 	 */
 	@Override
-	public void saveGuestEntry(GuestEntryVO guestEntryVO) throws GuestBookException {
+	public void saveGuestEntry(GuestEntryVO guestEntryVO, MultipartFile guestFile) throws GuestBookException {
 		log.debug("Method GuestBookServiceImpl.saveGuestEntry");
 		try {
 			GuestEntry guestEntry = new GuestEntry();
 			BeanUtils.copyProperties(guestEntryVO, guestEntry); 
 			guestEntry.setIsApproved(false);
+			guestEntry.setGuestFile(guestFile.getBytes());
 			guestBookRepository.save(guestEntry);
 		} catch (Exception exception) {
 			throw new GuestBookException("Error Adding Guest Entry", exception);
