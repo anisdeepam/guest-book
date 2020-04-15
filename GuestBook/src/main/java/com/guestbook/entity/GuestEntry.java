@@ -6,11 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import lombok.Data;
 /**
  * This is entity for GUEST_ENTRY table
  * @author Anis Deepa
  *
  */
+@Data
 @Entity
 @Table(name = "GUEST_ENTRY", schema = "guestbook")
 public class GuestEntry {
@@ -34,41 +37,53 @@ public class GuestEntry {
 	
 	@Column(name="is_approved")
 	private Boolean isApproved;
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public String getEmailAddr() {
 		return emailAddr;
 	}
+
 	public void setEmailAddr(String emailAddr) {
 		this.emailAddr = emailAddr;
 	}
+
 	public String getMessage() {
 		return message;
 	}
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
 	public Boolean getIsApproved() {
 		return isApproved;
 	}
+
 	public void setIsApproved(Boolean isApproved) {
 		this.isApproved = isApproved;
 	}
+
 }

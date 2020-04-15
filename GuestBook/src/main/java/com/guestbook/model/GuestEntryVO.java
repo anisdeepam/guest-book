@@ -23,7 +23,7 @@ public class GuestEntryVO implements Serializable {
 	private String message;
 	
 	private Boolean isApproved;
-	
+
 	public Boolean getSelected() {
 		return selected;
 	}
@@ -71,8 +71,8 @@ public class GuestEntryVO implements Serializable {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-    public Boolean getIsApproved() {
+
+	public Boolean getIsApproved() {
 		return isApproved;
 	}
 
@@ -82,8 +82,8 @@ public class GuestEntryVO implements Serializable {
 
 	@Override
     public String toString() {
-        return "GuestEntryVO [id=" + id + ", firstName=" + firstName
-                + ", lastName=" + lastName + ", emailAddr=" + emailAddr + "]";
+        return "GuestEntryVO [selected=" + selected + ",id=" + id + ", firstName=" + firstName
+                + ", lastName=" + lastName + ", emailAddr=" + emailAddr + ", message=" + message + ", isApproved=" + isApproved + "]";
     }
 
 }
