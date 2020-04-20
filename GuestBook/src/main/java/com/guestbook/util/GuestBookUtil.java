@@ -51,4 +51,16 @@ public class GuestBookUtil {
 			.collect(Collectors.toList());
 			return guestEntryList;
 	  }
+	  
+	  /**
+	   * This method converts GuestEntry entity to GuestEntryVO
+	   * @param guestEntry
+	   * @return guestEntryVO
+	   */
+	  public GuestEntryVO convertGuestEntryEntityToVO(GuestEntry guestEntry) {
+		  	log.debug("Method GuestBookUtil.convertGuestEntryEntityToVO");
+		  	GuestEntryVO guestEntryVO = new GuestEntryVO();
+		  	BeanUtils.copyProperties(guestEntry, guestEntryVO); 
+			return guestEntryVO;
+	  }
 }

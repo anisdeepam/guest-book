@@ -2,6 +2,7 @@ package com.guestbook.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.guestbook.constants.GuestBookAppConstants;
 import com.guestbook.entity.GuestEntry;
 import com.guestbook.exception.GuestBookException;
 import com.guestbook.model.GuestEntryVO;
@@ -43,7 +45,10 @@ public class GuestBookServiceImpl implements GuestBookService{
 		log.debug("Method GuestBookServiceImpl.fetchAllGuestEntries");
 		List<GuestEntryVO> guestEntryVOList = new ArrayList<GuestEntryVO>();
 		try {
-			guestEntryVOList = guestBookUtil.convertGuestEntryEntityToVOList(guestBookRepository.findAll());
+			List<GuestEntry> guestEntryList = guestBookRepository.findAll();
+			if (Optional.ofNullable(guestEntryList).isPresent()) {
+				guestEntryVOList = guestBookUtil.convertGuestEntryEntityToVOList(guestEntryList);
+			}
 		} catch (Exception exception) {
 			throw new GuestBookException("Error fetching Guest Entries from database", exception);
 		}
@@ -56,13 +61,19 @@ public class GuestBookServiceImpl implements GuestBookService{
 	 * @throws GuestBookException 
 	 */
 	@Override
-	public void deleteGuestEntry(List<GuestEntryVO> guestEntryVOList) throws GuestBookException {
+	public String deleteGuestEntry(List<GuestEntryVO> guestEntryVOList) throws GuestBookException {
 		log.debug("Method GuestBookServiceImpl.deleteGuestEntry");
+		String response = GuestBookAppConstants.GUEST_BOOK_EMPTY;
 		try {
-			guestBookRepository.deleteAll(guestBookUtil.convertGuestEntryVOToEntityList(guestEntryVOList));
+			List<GuestEntry> guestEntryList = guestBookUtil.convertGuestEntryVOToEntityList(guestEntryVOList);
+			if (Optional.ofNullable(guestEntryList).isPresent()) {
+				guestBookRepository.deleteAll(guestEntryList);
+				response = GuestBookAppConstants.SUCCESS;
+			}
 		} catch (Exception exception) {
 			throw new GuestBookException("Error deleting Guest Entries from database", exception);
 		}
+		return response;
 	}
 	
 	/**
@@ -71,13 +82,18 @@ public class GuestBookServiceImpl implements GuestBookService{
 	 * @throws GuestBookException 
 	 */
 	@Override
-	public void saveGuestEntryList(List<GuestEntryVO> guestEntryVOList) throws GuestBookException {
+	public List<GuestEntryVO> saveGuestEntryList(List<GuestEntryVO> guestEntryVOList) throws GuestBookException {
 		log.debug("Method GuestBookServiceImpl.saveGuestEntryList");
+		List<GuestEntry> guestEntryResponseList = new ArrayList<GuestEntry>();
 		try {
-			guestBookRepository.saveAll(guestBookUtil.convertGuestEntryVOToEntityList(guestEntryVOList));
+			List<GuestEntry> guestEntryList = guestBookUtil.convertGuestEntryVOToEntityList(guestEntryVOList);
+			if (Optional.ofNullable(guestEntryList).isPresent()) {
+				guestEntryResponseList = guestBookRepository.saveAll(guestEntryList);
+			}
 		} catch (Exception exception) {
 			throw new GuestBookException("Error updating Guest Entries ", exception);
 		}
+		return guestBookUtil.convertGuestEntryEntityToVOList(guestEntryResponseList);
 	}
 	
 	/**
@@ -87,17 +103,19 @@ public class GuestBookServiceImpl implements GuestBookService{
 	 * @throws GuestBookException 
 	 */
 	@Override
-	public void saveGuestEntry(GuestEntryVO guestEntryVO, MultipartFile guestFile) throws GuestBookException {
+	public GuestEntryVO saveGuestEntry(GuestEntryVO guestEntryVO, MultipartFile guestFile) throws GuestBookException {
 		log.debug("Method GuestBookServiceImpl.saveGuestEntry");
+		GuestEntry guestEntryResponse = new GuestEntry();
 		try {
 			GuestEntry guestEntry = new GuestEntry();
 			BeanUtils.copyProperties(guestEntryVO, guestEntry); 
 			guestEntry.setIsApproved(false);
 			guestEntry.setGuestFile(guestFile.getBytes());
-			guestBookRepository.save(guestEntry);
+			guestEntryResponse = guestBookRepository.save(guestEntry);
 		} catch (Exception exception) {
 			throw new GuestBookException("Error Adding Guest Entry", exception);
 		}
+		return guestBookUtil.convertGuestEntryEntityToVO(guestEntryResponse);
 	}
 
 }

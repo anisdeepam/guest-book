@@ -2,6 +2,8 @@ package com.guestbook.model;
 
 import java.io.Serializable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 /**
  * This is POJO for GuestEntryVO
@@ -10,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class GuestEntryVO implements Serializable {
 	
+	Logger log = LoggerFactory.getLogger(GuestEntryVO.class);
+	 
 	private static final long serialVersionUID = 1L;
 	
 	private Boolean selected;
@@ -104,8 +108,8 @@ public class GuestEntryVO implements Serializable {
 
 	@Override
     public String toString() {
-        return "GuestEntryVO [selected=" + selected + ",id=" + id + ", firstName=" + firstName
-                + ", lastName=" + lastName + ", emailAddr=" + emailAddr + ", message=" + message + ", isApproved=" + isApproved + "]";
+        return  "GuestEntryVO [selected=" + selected + ",id=" + id + ", firstName=" + firstName
+			       + ", lastName=" + lastName + ", emailAddr=" + emailAddr + ", message=" + message + ", isApproved=" + isApproved +"]";
     }
 
 }

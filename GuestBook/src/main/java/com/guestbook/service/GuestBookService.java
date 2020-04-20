@@ -15,10 +15,10 @@ public interface GuestBookService {
 	
 	public List<GuestEntryVO> fetchAllGuestEntries() throws GuestBookException;
 	
-	public void saveGuestEntry(GuestEntryVO guestEntry, MultipartFile file) throws GuestBookException;
+	public GuestEntryVO saveGuestEntry(GuestEntryVO guestEntry, MultipartFile file) throws GuestBookException;
 	
-	public void deleteGuestEntry(List<GuestEntryVO> guestEntryVOList) throws GuestBookException;
+	public String deleteGuestEntry(List<GuestEntryVO> guestEntryVOList) throws GuestBookException;
 	
-	public void saveGuestEntryList(List<GuestEntryVO> guestEntryVOList) throws GuestBookException;
+	public List<GuestEntryVO> saveGuestEntryList(List<GuestEntryVO> guestEntryVOList) throws GuestBookException;
 
 }

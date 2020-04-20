@@ -21,7 +21,7 @@ import com.guestbook.constants.GuestBookViewConstants;
 import com.guestbook.exception.GuestBookException;
 import com.guestbook.model.AdminFormVO;
 import com.guestbook.model.GuestEntryVO;
-import com.guestbook.service.impl.GuestBookServiceImpl;
+import com.guestbook.service.GuestBookService;
 
 /**
  * This is Controller for GuestBook application 
@@ -34,7 +34,7 @@ public class GuestBookController {
 	Logger log = LoggerFactory.getLogger(GuestBookController.class);
 	
 	@Autowired
-	GuestBookServiceImpl guestBookService;
+	GuestBookService guestBookService;
 	
 	/**
 	 * This method renders the application home page 
